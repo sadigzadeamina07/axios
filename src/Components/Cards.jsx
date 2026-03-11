@@ -4,19 +4,27 @@ import '../index.css'
 import axios from 'axios'
 function Cards() {
 const [user,setUsers]=useState([])
+const [loading,setLoading]=useState(true)
 useEffect(()=>{
  axios.get('https://6980a5df6570ee87d50fee52.mockapi.io/keto')
  .then(response=>{
   setUsers(response.data)
+  setLoading(false)
  })
  .catch(
   error=>{
     console.error(error);
+    setLoading(false)
     
   }
  )
 },[])
-  return (
+if(loading) return(
+  <div className="flex items-center justify-center ">
+    <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-600"></div>
+  </div>
+) 
+ return (
     <div className="max-w-[1300px] mx-auto py-[80px]">
  <div className='grid  grid-cols-1  md:grid-cols-2 lg:grid-cols-3  justify-items-center gap-5 '>
 {user.map((item)=>(
